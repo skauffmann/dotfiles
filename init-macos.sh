@@ -48,6 +48,13 @@ echo "Setting Zsh as default shell..."
 which zsh | sudo tee -a /etc/shells
 chsh -s "$(which zsh)"
 
+# Clone dotfiles if needed
+if [[ ! -d ~/workspace/dotfiles ]]; then
+  echo "Cloning dotfiles..."
+  mkdir -p ~/workspace
+  git clone https://github.com/skauffmann/dotfiles.git ~/workspace/dotfiles
+fi
+
 # chezmoi init & apply
 echo "Applying dotfiles with chezmoi..."
 ln -sf ~/workspace/dotfiles ~/.local/share/chezmoi

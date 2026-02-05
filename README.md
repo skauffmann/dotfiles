@@ -13,6 +13,16 @@ Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
 ## Quick Start
 
+On a fresh macOS, run:
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/skauffmann/dotfiles/main/init-macos.sh)
+```
+
+This will set the machine name, install Xcode CLI tools, Homebrew, 1Password CLI, chezmoi, clone this repo, and apply all dotfiles.
+
+### Manual Setup
+
 ### 1. Install prerequisites
 
 ```bash

@@ -1,0 +1,15 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+# nvm versions hash: {{ range .nvm.versions }}{{ . }}{{ end }}
+
+export NVM_DIR="$HOME/.nvm"
+. "/opt/homebrew/opt/nvm/nvm.sh"
+
+{{ range .nvm.versions -}}
+nvm install {{ . }}
+{{ end -}}
+
+nvm alias default {{ index .nvm.versions 0 }}
+
+{{ end -}}

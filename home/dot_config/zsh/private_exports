@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+export PATH="$(pyenv root)/shims:${PATH}"
+export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Jira CLI API token (from 1Password at chezmoi apply time)
+export JIRA_API_TOKEN="{{ onepasswordRead "op://Eurosport/Atlassian/API_TOKEN" }}"

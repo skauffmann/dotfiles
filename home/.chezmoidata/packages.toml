@@ -1,0 +1,121 @@
+[packages.darwin]
+taps = ['hashicorp/tap']
+
+brews = [
+  'applesimutils',
+  'awscli',
+  'bun',
+  'chezmoi',
+  'cocoapods',
+  'ddrescue',
+  'direnv',
+  'fastlane',
+  'ffmpeg',
+  'findutils',
+  'flyctl',
+  'fzf',
+  'gdbm',
+  'gettext',
+  'gh',
+  'gimme-aws-creds',
+  'git-delta',
+  'git-lfs',
+  'git',
+  'gnupg',
+  'grep',
+  'hashicorp/tap/terraform',
+  'htop',
+  'http-server',
+  'imagemagick',
+  'iredis',
+  'jira-cli',
+  'jq',
+  'k6',
+  'libpng',
+  'libsql/sqld/libsql-server',
+  'libyaml',
+  'mas',
+  'mkcert',
+  'mongosh',
+  'nss',
+  'nvm',
+  'openjdk',
+  'pnpm',
+  'pyenv',
+  'python@3.10',
+  'redis',
+  'rover',
+  'sqlite',
+  'ssh-copy-id',
+  'stripe/stripe-cli/stripe',
+  'swiftformat',
+  'swiftlint',
+  'tcl-tk',
+  'tree',
+  'ttab',
+  'tursodatabase/tap/turso',
+  'wget',
+  'wix/brew/applesimutils',
+  'woff2',
+  'xz',
+  'yarn',
+  'yt-dlp',
+]
+
+casks = [
+  '1password-cli',
+  'discord',
+  'figma',
+  'ghostty',
+  'google-chrome',
+  'imageoptim',
+  'insomnia',
+  'ngrok',
+  'notion',
+  'orbstack',
+  'setapp',
+  'slack',
+  'visual-studio-code',
+  'zoom',
+]
+
+# from Mac App Store with MAS
+mas = [
+  1114796497, # PDFLight
+  1147396723, # WhatsApp
+  1333542190, # 1Password
+  1470168007, # Vectornator Pro
+  407963104,  # Pixelmator
+  408981434,  # iMovie
+  409183694,  # Keynote
+  409201541,  # Pages
+  409203825,  # Numbers
+  425424353,  # The Unarchiver
+  497799835,  # Xcode
+  611658502,  # Boxy SVG
+  # 462054704,  # Microsoft Word
+  # 462058435,  # Microsoft Excel
+  # 462062816,  # Microsoft PowerPoint
+  # 985367838,  # Microsoft Outlook
+  # 976630793,  # EOBD-Facile
+]
+
+npms = [
+  '@apollo/rover',
+  '@shopify/create-app',
+  '@shopify/create-hydrogen',
+  '@skauffmann/worktree',
+  'create-astro',
+  'create-hono',
+  'create-next-app',
+  'create-video',
+  'create-vite',
+  'eas-cli',
+  'expo-cli',
+  'netlify-cli',
+  'node-gyp',
+  'npm-check-updates',
+  'typescript',
+  'vercel',
+  'xml2json',
+]

@@ -1,0 +1,55 @@
+{
+  "preferredEditor": "code",
+  "repositories": {
+    "worktree": {
+      "defaultValues": {
+        "dotEnvAction": "nothing",
+        "copyGeneratedFiles": true,
+        "installDependencies": true,
+        "openInEditor": true,
+        "openInTerminal": true
+      },
+      "afterScripts": ["dirvenv allow", "~/.claude/scripts/claude-trust"]
+    },
+    "graphql-api": {
+      "defaultValues": {
+        "dotEnvAction": "symlink",
+        "copyGeneratedFiles": false,
+        "installDependencies": true,
+        "openInEditor": true,
+        "openInTerminal": true
+      },
+      "afterScripts": ["dirvenv allow", "~/.claude/scripts/claude-trust"]
+    },
+    "eurosport-ai": {
+      "defaultValues": {
+        "dotEnvAction": "symlink",
+        "copyGeneratedFiles": false,
+        "installDependencies": true,
+        "openInEditor": true,
+        "openInTerminal": true
+      },
+      "afterScripts": ["dirvenv allow", "~/.claude/scripts/claude-trust"]
+    },
+    "umbreon-v3": {
+      "defaultValues": {
+        "dotEnvAction": "symlink",
+        "copyGeneratedFiles": true,
+        "installDependencies": true,
+        "openInEditor": true,
+        "openInTerminal": true
+      },
+      "afterScripts": ["dirvenv allow", "~/.claude/scripts/claude-trust"]
+    },
+    "infinity-cms-2": {
+      "defaultValues": {
+        "dotEnvAction": "symlink",
+        "copyGeneratedFiles": true,
+        "installDependencies": true,
+        "openInEditor": true,
+        "openInTerminal": true
+      },
+      "afterScripts": ["dirvenv allow", "~/.claude/scripts/claude-trust"]
+    }
+  }
+}

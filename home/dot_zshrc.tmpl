@@ -1,0 +1,46 @@
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/skauffmann/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="agnoster"
+ZSH_THEME="spaceship"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+# other : dotenv
+plugins=(cmdtime git zsh-autosuggestions zsh-syntax-highlighting macos vscode npm yarn history command-not-found last-working-dir pj)
+
+source $ZSH/oh-my-zsh.sh
+
+PROJECT_PATHS=(~/workspace)
+
+export PATH="$(pyenv root)/shims:${PATH}"
+
+# Node Version Manager
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+
+# Extra setup
+for file in ~/.config/zsh/{alias,exports,functions}; do
+	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+
+export REACT_EDITOR=cursor
+export EDITOR=cursor-
+
+export PATH="$NVM_DIR/versions/node/$(nvm version)/bin:$PATH"
+
+eval "$(direnv hook zsh)"
+
+# JIRA Token
+export PATH="$HOME/.local/bin:$PATH"

@@ -1,10 +1,10 @@
 [packages.darwin]
-taps = ['hashicorp/tap']
+taps = ['hashicorp/tap', 'oven-sh/bun', 'tursodatabase/tap']
 
 brews = [
   'applesimutils',
   'awscli',
-  'bun',
+  'oven-sh/bun/bun',
   'chezmoi',
   'cocoapods',
   'ddrescue',
@@ -64,15 +64,22 @@ brews = [
 
 casks = [
   '1password-cli',
+  '1password',
   'discord',
   'figma',
   'ghostty',
   'google-chrome',
+  'hakuneko',
   'imageoptim',
   'insomnia',
+  'mongodb-compass',
   'ngrok',
   'notion',
   'orbstack',
+  'raindropio',
+  'raycast',
+  'readdle-spark',
+  'setapp',
   'setapp',
   'slack',
   'visual-studio-code',
@@ -83,9 +90,7 @@ casks = [
 mas = [
   1114796497, # PDFLight
   1147396723, # WhatsApp
-  1333542190, # 1Password
   1470168007, # Vectornator Pro
-  407963104,  # Pixelmator
   408981434,  # iMovie
   409183694,  # Keynote
   409201541,  # Pages

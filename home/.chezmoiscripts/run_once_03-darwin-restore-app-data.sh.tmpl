@@ -1,0 +1,38 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+set -euo pipefail
+
+TMPDIR="$(mktemp -d)"
+trap 'rm -rf "$TMPDIR"' EXIT
+
+# --- MongoDB Compass ---
+COMPASS_APP="/Applications/MongoDB Compass.app/Contents/MacOS/MongoDB Compass"
+
+if [ ! -f "$COMPASS_APP" ]; then
+  echo "MongoDB Compass is not installed, skipping connections import."
+else
+  echo "Fetching MongoDB Compass connections from 1Password..."
+  COMPASS_FILE="$TMPDIR/compass-connections.json"
+  op document get "MongoDB Compass Connections" --vault "Eurosport" --out-file "$COMPASS_FILE" --force
+
+  echo "Importing connections into MongoDB Compass..."
+  "$COMPASS_APP" --import-connections="$COMPASS_FILE"
+  echo "MongoDB Compass connections imported successfully."
+fi
+
+# --- TablePlus ---
+TABLEPLUS_DATA_DIR="$HOME/Library/Application Support/com.tinyapp.TablePlus-setapp/Data"
+
+if [ -d "$TABLEPLUS_DATA_DIR" ]; then
+  echo "TablePlus data directory already exists, skipping restore."
+else
+  echo "Fetching TablePlus backup from 1Password..."
+  TABLEPLUS_FILE="$TMPDIR/tableplus-backup.zip"
+  op document get "TablePlus Backup" --vault "Eurosport" --out-file "$TABLEPLUS_FILE" --force
+
+  echo "Restoring TablePlus data..."
+  unzip -o "$TABLEPLUS_FILE" -d /
+  echo "TablePlus data restored successfully."
+fi
+{{ end -}}

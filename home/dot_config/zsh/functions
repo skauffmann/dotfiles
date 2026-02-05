@@ -53,3 +53,35 @@ function make () {
 function docker-clear {
   docker system prune -a --volumes
 }
+
+function backup-apps {
+  local tmpdir
+  tmpdir="$(mktemp -d)"
+  trap 'rm -rf "$tmpdir"' EXIT
+
+  # MongoDB Compass
+  local compass_file="$HOME/.mongodb/compass/Connections"
+  if [ -f "$compass_file" ]; then
+    echo "Backing up MongoDB Compass connections..."
+    cp "$compass_file" "$tmpdir/compass-connections.json"
+    op document edit "MongoDB Compass Connections" "$tmpdir/compass-connections.json" --vault "Eurosport" 2>/dev/null \
+      || op document create "$tmpdir/compass-connections.json" --title "MongoDB Compass Connections" --vault "Eurosport"
+    echo "MongoDB Compass connections backed up."
+  else
+    echo "MongoDB Compass connections file not found, skipping."
+  fi
+
+  # TablePlus
+  local tableplus_dir="$HOME/Library/Application Support/com.tinyapp.TablePlus-setapp/Data"
+  if [ -d "$tableplus_dir" ]; then
+    echo "Backing up TablePlus data..."
+    (cd / && zip -r "$tmpdir/tableplus-backup.zip" "$tableplus_dir")
+    op document edit "TablePlus Backup" "$tmpdir/tableplus-backup.zip" --vault "Eurosport" 2>/dev/null \
+      || op document create "$tmpdir/tableplus-backup.zip" --title "TablePlus Backup" --vault "Eurosport"
+    echo "TablePlus data backed up."
+  else
+    echo "TablePlus data directory not found, skipping."
+  fi
+
+  echo "All backups complete."
+}

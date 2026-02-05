@@ -16,3 +16,8 @@ cask {{ . | quote }}
 mas "", id: {{ . }}
 {{ end -}}
 EOF
+
+# pnpm and yarn formulae conflict with node's bundled symlinks
+brew link --overwrite pnpm 2>/dev/null || true
+brew link --overwrite yarn 2>/dev/null || true
+{{ end -}}

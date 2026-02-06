@@ -51,7 +51,6 @@ brews = [
   'swiftlint',
   'tcl-tk',
   'tree',
-  'ttab',
   'tursodatabase/tap/turso',
   'wget',
   'wix/brew/applesimutils',
@@ -119,6 +118,7 @@ npms = [
   'node-gyp',
   'npm-check-updates',
   'typescript',
+  'ttab',
   'vercel',
   'xml2json',
 ]

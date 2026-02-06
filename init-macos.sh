@@ -56,6 +56,7 @@ fi
 
 # chezmoi init & apply
 echo "Applying dotfiles with chezmoi..."
+mkdir -p ~/.local/share
 ln -sf ~/workspace/dotfiles ~/.local/share/chezmoi
 chezmoi apply
 

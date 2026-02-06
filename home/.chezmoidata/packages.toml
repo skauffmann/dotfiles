@@ -1,8 +1,7 @@
 [packages.darwin]
-taps = ['hashicorp/tap', 'oven-sh/bun', 'tursodatabase/tap']
+taps = ['hashicorp/tap', 'oven-sh/bun', 'tursodatabase/tap', 'wix/brew', 'stripe/stripe-cli']
 
 brews = [
-  'applesimutils',
   'awscli',
   'oven-sh/bun/bun',
   'chezmoi',
@@ -79,7 +78,6 @@ casks = [
   'raindropio',
   'raycast',
   'readdle-spark',
-  'setapp',
   'setapp',
   'slack',
   'visual-studio-code',

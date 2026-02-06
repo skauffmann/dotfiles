@@ -22,7 +22,6 @@ echo "Installing Xcode Command Line Tools..."
 /usr/bin/xcode-select --install 2>/dev/null || echo "Already installed."
 echo "Press Enter once the installation is complete."
 read -r
-sudo xcodebuild -license accept
 
 # Homebrew
 if ! command -v brew &>/dev/null; then

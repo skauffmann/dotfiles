@@ -33,6 +33,7 @@ brews = [
 casks = [
   '1password-cli',
   '1password',
+  'font-meslo-lg-nerd-font',
   'ghostty',
   'google-chrome',
   'imageoptim',
@@ -70,7 +71,6 @@ brews = [
   'iredis',
   'k6',
   'libyaml',
-  'nvm',
   'pyenv',
   'redis',
   'rover',

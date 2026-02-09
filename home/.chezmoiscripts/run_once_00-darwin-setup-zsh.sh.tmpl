@@ -28,6 +28,15 @@ clone_plugin zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestion
 clone_plugin zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting.git
 clone_plugin cmdtime https://github.com/tom-auger/cmdtime
 
+# --- NVM ---
+export NVM_DIR="$HOME/.nvm"
+if [ ! -s "$NVM_DIR/nvm.sh" ]; then
+  echo "Installing NVM..."
+  PROFILE=/dev/null bash -c "$(curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/HEAD/install.sh)"
+else
+  echo "NVM already installed."
+fi
+
 # --- Spaceship theme ---
 if [ ! -d "$ZSH_CUSTOM/themes/spaceship-prompt" ]; then
   echo "Installing Spaceship theme..."

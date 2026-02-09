@@ -33,6 +33,7 @@ brews = [
 casks = [
   '1password-cli',
   '1password',
+  'brave-browser',
   'font-meslo-lg-nerd-font',
   'ghostty',
   'google-chrome',

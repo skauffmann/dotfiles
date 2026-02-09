@@ -11,14 +11,8 @@ roles = ["office", "dev", "dev-xcode", "eurosport", "personal"]
 
 [hosts.Psykokwak]
 roles = ["dev"]
-exclude = [
-  "ghostty",
-  "mas",
-  "orbstack",
-  "oven-sh/bun/bun",
-  "oven-sh/bun",
-]
+exclude = ["ghostty", "mas", "orbstack"]
 exclude_mas = [
-  425424353,  # The Unarchiver
-  611658502,  # Boxy SVG
+  425424353, # The Unarchiver
+  611658502, # Boxy SVG
 ]

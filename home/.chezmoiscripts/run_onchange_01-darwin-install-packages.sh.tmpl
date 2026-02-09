@@ -1,23 +1,76 @@
 {{ if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
 
+{{ $roles := list -}}
+{{ $exclude := list -}}
+{{ $excludeMas := list -}}
+{{ if hasKey .hosts .chezmoi.hostname -}}
+{{ $hostConfig := index .hosts .chezmoi.hostname -}}
+{{ $roles = $hostConfig.roles -}}
+{{ if hasKey $hostConfig "exclude" -}}
+{{ $exclude = $hostConfig.exclude -}}
+{{ end -}}
+{{ if hasKey $hostConfig "exclude_mas" -}}
+{{ $excludeMas = $hostConfig.exclude_mas -}}
+{{ end -}}
+{{ end -}}
+
+# Roles: {{ join ", " $roles }}
+
 # Install Homebrew packages
-brew bundle --file=/dev/stdin <<EOF
+brew bundle --no-lock --file=/dev/stdin <<EOF
 {{ range .packages.darwin.taps -}}
+{{ if not (has . $exclude) -}}
 tap {{ . | quote }}
 {{ end -}}
+{{ end -}}
 {{ range .packages.darwin.brews -}}
+{{ if not (has . $exclude) -}}
 brew {{ . | quote }}
 {{ end -}}
+{{ end -}}
+{{ range $role := $roles -}}
+{{ if hasKey $.packages.darwin.roles $role -}}
+{{ if hasKey (index $.packages.darwin.roles $role) "brews" -}}
+{{ range (index $.packages.darwin.roles $role).brews -}}
+{{ if not (has . $exclude) -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+{{ end -}}
 {{ range .packages.darwin.casks -}}
+{{ if not (has . $exclude) -}}
 cask {{ . | quote }}
 {{ end -}}
+{{ end -}}
+{{ range $role := $roles -}}
+{{ if hasKey $.packages.darwin.roles $role -}}
+{{ if hasKey (index $.packages.darwin.roles $role) "casks" -}}
+{{ range (index $.packages.darwin.roles $role).casks -}}
+{{ if not (has . $exclude) -}}
+cask {{ . | quote }}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+{{ end -}}
 {{ range .packages.darwin.mas -}}
+{{ if not (has . $excludeMas) -}}
 mas "", id: {{ . }}
 {{ end -}}
+{{ end -}}
+{{ range $role := $roles -}}
+{{ if hasKey $.packages.darwin.roles $role -}}
+{{ if hasKey (index $.packages.darwin.roles $role) "mas" -}}
+{{ range (index $.packages.darwin.roles $role).mas -}}
+{{ if not (has . $excludeMas) -}}
+mas "", id: {{ . }}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+{{ end -}}
 EOF
-
-# pnpm and yarn formulae conflict with node's bundled symlinks
-brew link --overwrite pnpm 2>/dev/null || true
-brew link --overwrite yarn 2>/dev/null || true
 {{ end -}}

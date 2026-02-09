@@ -1,0 +1,9 @@
+[default]
+region = eu-west-1
+cli_pager =
+
+[profile {{ onepasswordRead "op://Tyneo/AWS Credentials/AWS_PROFILE" }}]
+credential_process = sh -c 'op read "op://Tyneo/AWS Credentials/aws-tyneo-credentials.json"'
+region = eu-west-1
+cli_pager =
+

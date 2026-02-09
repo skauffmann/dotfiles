@@ -12,5 +12,4 @@ alias update='sudo softwareupdate -i -a; brew update; brew upgrade; mas upgrade;
 
 alias pn=pnpm
 
-# eval "$(github-copilot-cli alias -- "$0")"
-alias claude-yolo="claude --permission-mode acceptEdits"
+alias claude-yolo="claude --dangerously-skip-permissions"

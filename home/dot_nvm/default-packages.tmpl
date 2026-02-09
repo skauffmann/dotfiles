@@ -1,3 +1,25 @@
+{{- $roles := list -}}
+{{- $exclude := list -}}
+{{- if hasKey .hosts .chezmoi.hostname -}}
+{{- $hostConfig := index .hosts .chezmoi.hostname -}}
+{{- $roles = $hostConfig.roles -}}
+{{- if hasKey $hostConfig "exclude" -}}
+{{- $exclude = $hostConfig.exclude -}}
+{{- end -}}
+{{- end -}}
 {{- range .packages.darwin.npms }}
+{{- if not (has . $exclude) }}
 {{ . }}
+{{- end -}}
+{{- end -}}
+{{- range $role := $roles -}}
+{{- if hasKey $.packages.darwin.roles $role -}}
+{{- if hasKey (index $.packages.darwin.roles $role) "npms" -}}
+{{- range (index $.packages.darwin.roles $role).npms }}
+{{- if not (has . $exclude) }}
+{{ . }}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
 {{- end }}

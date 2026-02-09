@@ -4,7 +4,11 @@
 # nvm versions hash: {{ range .nvm.versions }}{{ . }}{{ end }}
 
 export NVM_DIR="$HOME/.nvm"
+{{ if eq .chezmoi.arch "arm64" -}}
 . "/opt/homebrew/opt/nvm/nvm.sh"
+{{ else -}}
+. "/usr/local/opt/nvm/nvm.sh"
+{{ end -}}
 
 {{ range .nvm.versions -}}
 nvm install {{ . }}

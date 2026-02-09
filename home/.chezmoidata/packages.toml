@@ -1,99 +1,49 @@
 [packages.darwin]
-taps = ['hashicorp/tap', 'oven-sh/bun', 'tursodatabase/tap', 'wix/brew', 'stripe/stripe-cli']
+taps = [
+  'hashicorp/tap',
+  'oven-sh/bun',
+  'tursodatabase/tap',
+  'wix/brew',
+  'stripe/stripe-cli',
+]
 
 brews = [
-  'awscli',
-  'oven-sh/bun/bun',
   'chezmoi',
-  'cocoapods',
   'ddrescue',
-  'direnv',
-  'fastlane',
   'ffmpeg',
   'findutils',
   'flyctl',
   'fzf',
   'gdbm',
   'gettext',
-  'gh',
-  'gimme-aws-creds',
-  'git-delta',
-  'git-lfs',
-  'git',
   'gnupg',
-  'grep',
-  'hashicorp/tap/terraform',
   'htop',
-  'http-server',
-  'imagemagick',
-  'iredis',
-  'jira-cli',
   'jq',
-  'k6',
   'libpng',
-  'libsql/sqld/libsql-server',
-  'libyaml',
   'mas',
   'mkcert',
-  'mongosh',
   'nss',
-  'nvm',
-  'openjdk',
-  'pnpm',
-  'pyenv',
-  'python@3.10',
-  'redis',
-  'rover',
-  'sqlite',
   'ssh-copy-id',
-  'stripe/stripe-cli/stripe',
-  'swiftformat',
-  'swiftlint',
-  'tcl-tk',
   'tree',
-  'tursodatabase/tap/turso',
   'wget',
-  'wix/brew/applesimutils',
   'woff2',
   'xz',
-  'yarn',
-  'yt-dlp',
 ]
 
 casks = [
   '1password-cli',
   '1password',
-  'discord',
-  'figma',
   'ghostty',
   'google-chrome',
-  'hakuneko',
   'imageoptim',
   'insomnia',
-  'mongodb-compass',
-  'ngrok',
   'notion',
-  'orbstack',
-  'raindropio',
   'raycast',
-  'readdle-spark',
   'setapp',
-  'slack',
-  'visual-studio-code',
-  'zoom',
 ]
 
-# from Mac App Store with MAS
 mas = [
-  1114796497, # PDFLight
-  1147396723, # WhatsApp
-  1470168007, # Vectornator Pro
-  408981434,  # iMovie
-  409183694,  # Keynote
-  409201541,  # Pages
-  409203825,  # Numbers
   425424353,  # The Unarchiver
-  497799835,  # Xcode
   611658502,  # Boxy SVG
   # 462054704,  # Microsoft Word
   # 462058435,  # Microsoft Excel
@@ -102,8 +52,44 @@ mas = [
   # 976630793,  # EOBD-Facile
 ]
 
+npms = []
+
+# Role: dev — development tools and environments
+[packages.darwin.roles.dev]
+brews = [
+  'awscli',
+  'oven-sh/bun/bun',
+  'direnv',
+  'gh',
+  'git-delta',
+  'git-lfs',
+  'git',
+  'grep',
+  'hashicorp/tap/terraform',
+  'imagemagick',
+  'iredis',
+  'k6',
+  'libyaml',
+  'nvm',
+  'pyenv',
+  'redis',
+  'rover',
+  'sqlite',
+  'stripe/stripe-cli/stripe',
+  'tcl-tk',
+  'tursodatabase/tap/turso',
+]
+casks = [
+  'mongodb-compass',
+  'ngrok',
+  'orbstack',
+  'visual-studio-code',
+]
 npms = [
-  '@apollo/rover',
+  'pnpm',
+  'yarn',
+  'mongosh',
+  'http-server',
   '@shopify/create-app',
   '@shopify/create-hydrogen',
   '@skauffmann/worktree',
@@ -112,8 +98,6 @@ npms = [
   'create-next-app',
   'create-video',
   'create-vite',
-  'eas-cli',
-  'expo-cli',
   'netlify-cli',
   'node-gyp',
   'npm-check-updates',
@@ -121,4 +105,61 @@ npms = [
   'ttab',
   'vercel',
   'xml2json',
+]
+
+# Role: dev-xcode — iOS/macOS development tools
+[packages.darwin.roles.dev-xcode]
+brews = [
+  'cocoapods',
+  'fastlane',
+  'swiftformat',
+  'swiftlint',
+  'wix/brew/applesimutils',
+]
+mas = [
+  497799835,  # Xcode
+]
+npms = [
+  'eas-cli',
+  'expo-cli',
+]
+
+# Role: eurosport — work-specific tools
+[packages.darwin.roles.eurosport]
+brews = [
+  'gimme-aws-creds',
+  'jira-cli',
+  'k6',
+]
+casks = [
+  'figma',
+  'slack',
+  'zoom',
+]
+
+# Role: office — productivity and office apps
+[packages.darwin.roles.office]
+mas = [
+  1114796497, # PDFLight
+  1147396723, # WhatsApp
+  1470168007, # Vectornator Pro
+  408981434,  # iMovie
+  409183694,  # Keynote
+  409201541,  # Pages
+  409203825,  # Numbers
+]
+
+# Role: personal — personal apps and utilities
+[packages.darwin.roles.personal]
+brews = [
+  'yt-dlp',
+]
+casks = [
+  'discord',
+  'hakuneko',
+  'raindropio',
+  'readdle-spark',
+]
+mas = [
+  1147396723, # WhatsApp
 ]

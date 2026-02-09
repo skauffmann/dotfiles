@@ -1,0 +1,24 @@
+# Hostname to roles mapping
+# Machines not listed here will only get common packages
+#
+# Each host has:
+#   roles       — list of package roles to include
+#   exclude     — (optional) package names to skip (taps, brews, casks, npms)
+#   exclude_mas — (optional) MAS app IDs to skip (integers)
+
+[hosts.Elektek]
+roles = ["office", "dev", "dev-xcode", "eurosport", "personal"]
+
+[hosts.Psykokwak]
+roles = ["dev"]
+exclude = [
+  "ghostty",
+  "mas",
+  "orbstack",
+  "oven-sh/bun/bun",
+  "oven-sh/bun",
+]
+exclude_mas = [
+  425424353,  # The Unarchiver
+  611658502,  # Boxy SVG
+]

@@ -5,6 +5,8 @@ export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agen
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+{{- if and (hasKey .hosts .chezmoi.hostname) (has "eurosport" (index .hosts .chezmoi.hostname).roles) }}
+
 # Jira CLI API token
 export JIRA_API_TOKEN="{{ onepasswordRead "op://Eurosport/Atlassian/API_TOKEN" }}"
 
@@ -17,3 +19,4 @@ export NEW_RELIC_ACCOUNT_ID={{ onepasswordRead "op://Eurosport/API Tokens/NEW_RE
 
 # Sentry API Key eurosport-sas
 export SENTRY_AUTH_TOKEN="{{ onepasswordRead "op://Eurosport/API Tokens/SENTRY_AUTH_TOKEN" }}"
+{{- end }}

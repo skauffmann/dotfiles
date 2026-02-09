@@ -1,0 +1,10 @@
+{{- $roles := list -}}
+{{- if hasKey .hosts .chezmoi.hostname -}}
+{{-   $roles = (index .hosts .chezmoi.hostname).roles -}}
+{{- end -}}
+
+# Eurosport-only configs
+{{ if not (has "eurosport" $roles) }}
+.config/.jira/**
+.okta_aws_login_config
+{{ end }}

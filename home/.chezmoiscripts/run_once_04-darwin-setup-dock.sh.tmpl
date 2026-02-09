@@ -1,0 +1,57 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+set -euo pipefail
+
+function add_app_to_dock {
+  app_name="${1}"
+  launchservices_path="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister"
+  app_path=$(${launchservices_path} -dump | grep -o "/.*${app_name}.app" | grep -v -E "Backups|Caches|TimeMachine|Temporary|/Volumes/${app_name}" | uniq | sort | head -n1)
+  if open -Ra "${app_path}"; then
+    echo "$app_path added to the Dock."
+    defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>${app_path}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+  else
+    echo "ERROR: $1 not found." 1>&2
+  fi
+}
+
+function clear_dock {
+  defaults write com.apple.dock persistent-apps -array
+}
+
+echo "Setting up Dock..."
+
+clear_dock
+
+add_app_to_dock "Finder"
+
+# Brave Browser if installed, otherwise Chrome
+if open -Ra "Brave Browser" 2>/dev/null; then
+  add_app_to_dock "Brave Browser"
+else
+  add_app_to_dock "Google Chrome"
+fi
+
+# Spark only if installed
+if open -Ra "Spark" 2>/dev/null; then
+  add_app_to_dock "Spark"
+fi
+
+# VSCode only if installed
+if open -Ra "Visual Studio Code" 2>/dev/null; then
+  add_app_to_dock "Visual Studio Code"
+fi
+
+# Ghostty if installed, otherwise Terminal
+if open -Ra "Ghostty" 2>/dev/null; then
+  add_app_to_dock "Ghostty"
+else
+  add_app_to_dock "Terminal"
+fi
+
+add_app_to_dock "Discord"
+
+killall Dock
+
+echo "Dock setup complete."
+{{ end -}}

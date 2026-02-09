@@ -1,3 +1,8 @@
+{{ $roles := list -}}
+{{ if hasKey .hosts .chezmoi.hostname -}}
+{{ $hostConfig := index .hosts .chezmoi.hostname -}}
+{{ $roles = $hostConfig.roles -}}
+{{ end -}}
 {{ if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
 
@@ -138,6 +143,29 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 
 # Enable lid wakeup
 # sudo pmset -a lidwake 1
+
+{{ if has "server" $roles -}}
+# Prevent sleep when closing the lid (server/headless mode)
+sudo pmset -a disablesleep 1
+
+# Disable machine sleep when on power adapter
+sudo pmset -c sleep 0
+
+# Sleep the display after 5 minutes
+sudo pmset -a displaysleep 5
+
+# Restart automatically on power loss
+sudo pmset -a autorestart 1
+
+# Restart automatically if the computer freezes
+sudo systemsetup -setrestartfreeze on
+
+# Enable Wake on LAN
+sudo pmset -a womp 1
+
+# Enable Remote Login (SSH)
+sudo systemsetup -setremotelogin on
+{{ end -}}
 
 # # Restart automatically on power loss
 # sudo pmset -a autorestart 1

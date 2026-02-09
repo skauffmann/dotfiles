@@ -10,7 +10,7 @@
 roles = ["office", "dev", "dev-xcode", "eurosport", "personal"]
 
 [hosts.Psykokwak]
-roles = ["dev"]
+roles = ["dev", "server"]
 exclude = ["ghostty", "mas", "orbstack"]
 exclude_mas = [
   425424353, # The Unarchiver

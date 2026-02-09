@@ -14,20 +14,19 @@ fi
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
 # --- Custom plugins ---
-declare -A plugins=(
-  [zsh-autosuggestions]="https://github.com/zsh-users/zsh-autosuggestions"
-  [zsh-syntax-highlighting]="https://github.com/zsh-users/zsh-syntax-highlighting.git"
-  [cmdtime]="https://github.com/tom-auger/cmdtime"
-)
-
-for name in "${!plugins[@]}"; do
+clone_plugin() {
+  local name="$1" repo="$2"
   if [ ! -d "$ZSH_CUSTOM/plugins/$name" ]; then
     echo "Installing plugin $name..."
-    git clone --depth=1 "${plugins[$name]}" "$ZSH_CUSTOM/plugins/$name"
+    git clone --depth=1 "$repo" "$ZSH_CUSTOM/plugins/$name"
   else
     echo "Plugin $name already installed."
   fi
-done
+}
+
+clone_plugin zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions
+clone_plugin zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting.git
+clone_plugin cmdtime https://github.com/tom-auger/cmdtime
 
 # --- Spaceship theme ---
 if [ ! -d "$ZSH_CUSTOM/themes/spaceship-prompt" ]; then

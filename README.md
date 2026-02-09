@@ -6,10 +6,12 @@ Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
 - Secrets managed with [1Password CLI](https://developer.1password.com/docs/cli/) (API tokens, SSH signing key, credentials)
 - Modern shell with [Oh-My-Zsh](https://ohmyz.sh/), [Spaceship](https://spaceship-prompt.sh/) prompt, autosuggestions & syntax highlighting
+- Role-based machine configuration (different packages/configs per host)
 - Declarative package management via [Homebrew Bundle](https://github.com/Homebrew/homebrew-bundle)
 - Node.js version management with [NVM](https://github.com/nvm-sh/nvm) and auto-installed global packages
 - Per-project environment with [direnv](https://direnv.net/) and [pyenv](https://github.com/pyenv/pyenv)
 - Git commit signing with 1Password SSH keys
+- App data backup/restore via 1Password (MongoDB Compass, TablePlus)
 
 ## Quick Start
 
@@ -70,21 +72,27 @@ chsh -s $(which zsh)
 ```
 .
 ├── .chezmoiroot                   # Sets home/ as chezmoi source directory
+├── init-macos.sh                  # Bootstrap script for fresh macOS
 └── home/                          # Chezmoi source directory
     ├── .chezmoidata/
-    │   ├── packages.toml          # Homebrew taps, brews, casks & MAS apps
+    │   ├── hosts.toml             # Host-to-role mapping & per-host excludes
+    │   ├── packages.toml          # Homebrew taps, brews, casks, MAS & NPMs
     │   └── nvm.toml               # Node.js versions to install
+    ├── .chezmoiignore             # Conditional file exclusion based on roles
     ├── .chezmoiscripts/
     │   ├── run_onchange_01-…      # Auto-install packages when data changes
-    │   └── run_onchange_02-…      # Auto-install Node versions when data changes
+    │   ├── run_onchange_02-…      # Auto-install Node versions when data changes
+    │   └── run_once_03-…          # Restore app data from 1Password (once)
+    ├── dot_aws/
+    │   └── private_config.tmpl    # AWS CLI config (1Password credentials)
     ├── dot_config/
     │   ├── direnv/direnvrc        # Direnv + NVM integration
     │   ├── gh/                    # GitHub CLI config
     │   ├── private_dot_jira/      # JIRA CLI config (1Password secrets)
     │   └── zsh/
     │       ├── alias              # Shell aliases
-    │       ├── functions          # Shell functions
-    │       └── private_exports    # Sensitive env vars (1Password)
+    │       ├── functions          # Shell functions (incl. backup-apps)
+    │       └── private_exports.tmpl  # Sensitive env vars (role-conditional)
     ├── dot_gitignore              # Global gitignore
     ├── dot_nvm/
     │   └── default-packages.tmpl  # NPM packages auto-installed per Node version
@@ -103,23 +111,36 @@ chsh -s $(which zsh)
 | `private_`      | File with 600 permissions                      |
 | `.tmpl`         | Go template, rendered by chezmoi at apply time |
 | `run_onchange_` | Script runs when its watched content changes   |
+| `run_once_`     | Script runs only once per machine              |
 
 ## What's Included
 
 ### Packages
 
-Defined in [`home/.chezmoidata/packages.toml`](home/.chezmoidata/packages.toml) and auto-installed via `brew bundle`:
+Defined in [`home/.chezmoidata/packages.toml`](home/.chezmoidata/packages.toml) and auto-installed via `brew bundle`. Packages are split into **common** (all machines) and **role-specific** (per host).
 
-| Type  | Count | Examples                                                     |
-| ----- | ----- | ------------------------------------------------------------ |
-| Taps  | 1     | hashicorp/tap                                                |
-| Brews | 63    | git, nvm, pyenv, fzf, jq, terraform, awscli, ffmpeg, direnv |
-| Casks | 14    | 1password-cli, ghostty, visual-studio-code, orbstack, slack  |
-| MAS   | 12    | 1Password, Xcode, Pixelmator, iMovie, WhatsApp              |
+**Common packages:**
+
+| Type  | Count | Examples                                        |
+| ----- | ----- | ----------------------------------------------- |
+| Taps  | 6     | hashicorp/tap, oven-sh/bun, wix/brew            |
+| Brews | 21    | curl, fzf, jq, mas, ffmpeg, tree, wget          |
+| Casks | 9     | 1password-cli, ghostty, tableplus, pixelmator   |
+| MAS   | 2     | 1Password, The Unarchiver                       |
+
+**Roles** (assigned per host in [`hosts.toml`](home/.chezmoidata/hosts.toml)):
+
+| Role        | Description                      | Packages                                          |
+| ----------- | -------------------------------- | ------------------------------------------------- |
+| `dev`       | Development tools & environments | awscli, git, nvm, pyenv, terraform, VS Code, etc. |
+| `dev-xcode` | iOS/macOS development            | cocoapods, fastlane, swiftlint, Xcode             |
+| `eurosport` | Work-specific tools              | gimme-aws-creds, jira-cli, figma, slack, zoom     |
+| `office`    | Productivity apps                | iMovie, Keynote, Pages, Numbers                   |
+| `personal`  | Personal apps                    | yt-dlp, discord, raindropio                       |
 
 ### NPM Global Packages
 
-Defined in the same file and auto-installed with each Node version via NVM:
+Defined per-role in `packages.toml` and dynamically generated in `default-packages.tmpl` based on the host's roles. Auto-installed with each Node version via NVM.
 
 `typescript`, `vercel`, `netlify-cli`, `create-next-app`, `create-vite`, `create-astro`, `create-hono`, `expo-cli`, `eas-cli`, `@shopify/create-app`, `@skauffmann/worktree`, and more.
 

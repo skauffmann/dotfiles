@@ -38,7 +38,9 @@ done;
 export REACT_EDITOR=cursor
 export EDITOR=cursor-
 
-export PATH="$NVM_DIR/versions/node/$(nvm version)/bin:$PATH"
+if command -v nvm &>/dev/null; then
+  export PATH="$NVM_DIR/versions/node/$(nvm version)/bin:$PATH"
+fi
 
 eval "$(direnv hook zsh)"
 

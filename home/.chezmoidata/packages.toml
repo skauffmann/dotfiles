@@ -42,6 +42,7 @@ casks = [
   'notion',
   'raycast',
   'setapp',
+  'tailscale',
 ]
 
 mas = [
@@ -148,6 +149,12 @@ mas = [
   409183694,  # Keynote
   409201541,  # Pages
   409203825,  # Numbers
+]
+
+# Role: server — server and virtualization tools
+[packages.darwin.roles.server]
+casks = [
+  'virtualbox',
 ]
 
 # Role: personal — personal apps and utilities
